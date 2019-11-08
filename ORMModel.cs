@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Linq.Mapping;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -17,12 +18,18 @@ namespace ORM
             var fields = new StringBuilder("(");
             var values = new StringBuilder(" values (");
 
-            Type type = this.GetType();
+            Type type = GetType();
             object[] tableAttributes = type.GetCustomAttributes(typeof(TableAttribute), true);
 
+            if (!string.IsNullOrEmpty(stringBuilder.ToString()))
+            {
+                SqlCommand command = new SqlCommand();
+                command.CommandText = stringBuilder.ToString();
+                command.ExecuteNonQuery();
+            }
             if (tableAttributes.Length == 1)
             {
-                stringBuilder.Append(string.Format("INSERT INTO {0} ", ((TableAttribute)tableAttributes[0]).Name));
+                stringBuilder.Append(string.Format("INSERT INTO [User] ", ((TableAttribute)tableAttributes[0]).Name));
 
                 int fieldCount = 0;
 
@@ -66,12 +73,12 @@ namespace ORM
             var stringBuilder = new StringBuilder();
             var fieldsSql = new StringBuilder("");
             var fromSql = new StringBuilder();
-            Type type = this.GetType();
+            Type type = GetType();
             object[] tableAttributes = type.GetCustomAttributes(typeof(TableAttribute), true);
             if (tableAttributes.Length == 1)
             {
-                stringBuilder.Append(String.Format("SELECT "));
-                fromSql.Append(String.Format(" from {0}", ((TableAttribute)tableAttributes[0]).Name));
+                stringBuilder.Append(string.Format("SELECT "));
+                fromSql.Append(string.Format(" from {0}", ((TableAttribute)tableAttributes[0]).Name));
                 int fieldCount = 0;
                 foreach (var propertyInfo in type.GetProperties())
                 {
@@ -107,12 +114,12 @@ namespace ORM
             var stringBuilder = new StringBuilder();
             var fieldsSql = new StringBuilder("");
             var whereSql = new StringBuilder(" WHERE ");
-            Type type = this.GetType();
+            Type type = GetType();
             object[] tableAttributes = type.GetCustomAttributes(typeof(TableAttribute), true);
 
             if (tableAttributes.Length == 1)
             {
-                stringBuilder.Append(String.Format("UPDATE {0} SET ", ((TableAttribute)tableAttributes[0]).Name));
+                stringBuilder.Append(string.Format("UPDATE {0} SET ", ((TableAttribute)tableAttributes[0]).Name));
                 int fieldCount = 0;
                 foreach (var propertyInfo in type.GetProperties())
                 {
@@ -124,13 +131,13 @@ namespace ORM
 
                         if (columnAttribute != null && columnAttribute.IsPrimaryKey)
                         {
-                            whereSql.Append(String.Format("{0}=@{0}", columnAttribute.ColumnName));
+                            whereSql.Append(string.Format("{0}=@{0}", columnAttribute.ColumnName));
                         }
                         if (fieldCount == 0)
                         {
                             if (columnAttribute != null && !columnAttribute.IsAutoIncrement)
                             {
-                                fieldsSql.Append(String.Format("{0}=@{0}", columnAttribute.ColumnName));
+                                fieldsSql.Append(string.Format("{0}=@{0}", columnAttribute.ColumnName));
                                 fieldCount++;
                             }
                         }
@@ -138,7 +145,7 @@ namespace ORM
                         {
                             if (columnAttribute != null && !columnAttribute.IsAutoIncrement)
                             {
-                                fieldsSql.Append(String.Format(" ,{0}=@{0}", columnAttribute.ColumnName));
+                                fieldsSql.Append(string.Format(" ,{0}=@{0}", columnAttribute.ColumnName));
                                 fieldCount++;
                             }
                         }
@@ -156,12 +163,12 @@ namespace ORM
             var stringBuilder = new StringBuilder();
             var fieldsSql = new StringBuilder("");
             var whereSql = new StringBuilder(" WHERE ");
-            Type type = this.GetType();
+            Type type = GetType();
             object[] tableAttributes = type.GetCustomAttributes(typeof(TableAttribute), true);
 
             if (tableAttributes.Length == 1)
             {
-                stringBuilder.Append(String.Format("DELETE FROM {0} ", ((TableAttribute)tableAttributes[0]).Name));
+                stringBuilder.Append(string.Format("DELETE FROM {0} ", ((TableAttribute)tableAttributes[0]).Name));
                 foreach (var propertyInfo in type.GetProperties())
                 {
                     object[] columnAttributes = propertyInfo.GetCustomAttributes(typeof(SqlColumnAttribute), true);
@@ -171,7 +178,7 @@ namespace ORM
                         var columnAttribute = columnAttributes[0] as SqlColumnAttribute;
                         if (columnAttribute != null && columnAttribute.IsPrimaryKey)
                         {
-                            whereSql.Append(String.Format("{0}=@{0}", columnAttribute.ColumnName));
+                            whereSql.Append(string.Format("{0}=@{0}", columnAttribute.ColumnName));
                             break;
                         }
                     }
@@ -179,6 +186,7 @@ namespace ORM
                 stringBuilder.Append(fieldsSql);
                 stringBuilder.Append(whereSql);
             }
+            Console.WriteLine(stringBuilder);
             return stringBuilder.ToString();
         }
 
@@ -225,7 +233,7 @@ namespace ORM
         {
             get
             {
-                Type type = this.GetType();
+                Type type = GetType();
                 object[] tableAttributes = type.GetCustomAttributes(typeof(TableAttribute), true);
 
                 if (tableAttributes.Length == 1)

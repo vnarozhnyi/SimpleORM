@@ -4,11 +4,13 @@ namespace ORM
 {
     class UnitOfWork
     {
-        private string ConnectionString;
+        public SqlConnection _dbconnection;
         private Repository repo;
+
         public UnitOfWork(string connectionString)
         {
-           ConnectionString = connectionString;
+            _dbconnection = new SqlConnection(connectionString);
+            _dbconnection.Open();
         }
 
         public Repository repository
@@ -17,12 +19,12 @@ namespace ORM
             {
                 if (repo == null)
                 {
-                    repo = new Repository(ConnectionString);
+                    repo = new Repository(_dbconnection);
                 }
                 return repo;
             }
         }
 
-       
+
     }
 }

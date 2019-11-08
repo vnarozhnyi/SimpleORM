@@ -1,16 +1,17 @@
 ﻿using System;
-using System.Data.Linq.Mapping;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ORM
 {
     [Serializable]
-    [Table(Name = "User")]
-    public class User : ORMModel
+    [System.Data.Linq.Mapping.Table(Name = "[User]")]
+    public class Users : ORMModel
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [SqlColumn("Id", "integer", IsPrimaryKey = true)]
         public int Id { get; set; }
 
-        [SqlColumn("Name", "varchar(100) NULL")]
+        [SqlColumn("Name", "varchar(50) NULL")]
         public string Name { get; set; }
     }
 }

@@ -5,13 +5,12 @@ namespace ORM
 {
     internal class Repository
     {
-        private readonly SqlConnection _dbconnection;
-        private List<User> _users;
+        public SqlConnection _dbconnection;
+        public List<Users> _users;
 
-        public Repository(string ConnectionString)
+        public Repository(SqlConnection dbconnection)
         {
-            _dbconnection = new SqlConnection(ConnectionString);
-            _dbconnection.Open();
+            _dbconnection = dbconnection;
         }
 
         public void Update(ORMModel ormModel)
@@ -29,12 +28,11 @@ namespace ORM
             ormModel.Insert(_dbconnection);
         }
 
-
-        public List<User> Users
+        public List<Users> Users
         {
             get
             {
-                return ((new User()).Select<User>(_dbconnection));
+                return ((new Users()).Select<Users>(_dbconnection));
             }
         }
 
