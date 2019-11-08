@@ -4,18 +4,25 @@ namespace ORM
 {
     class UnitOfWork
     {
-        private readonly SqlConnection _dbconnection;
+        private string ConnectionString;
         private Repository repo;
+        public UnitOfWork(string connectionString)
+        {
+           ConnectionString = connectionString;
+        }
+
         public Repository repository
         {
             get
             {
                 if (repo == null)
                 {
-                    repo = new Repository(_dbconnection);
+                    repo = new Repository(ConnectionString);
                 }
                 return repo;
             }
         }
+
+       
     }
 }

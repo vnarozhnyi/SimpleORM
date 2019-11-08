@@ -4,7 +4,7 @@ using System.Data.Linq.Mapping;
 namespace ORM
 {
     [Serializable]
-    [Table(Name = "Users")]
+    [Table(Name = "User")]
     public class User : ORMModel
     {
         [SqlColumn("Id", "integer", IsPrimaryKey = true)]

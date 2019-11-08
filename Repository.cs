@@ -7,7 +7,12 @@ namespace ORM
     {
         private readonly SqlConnection _dbconnection;
         private List<User> _users;
-       
+
+        public Repository(string ConnectionString)
+        {
+            _dbconnection = new SqlConnection(ConnectionString);
+            _dbconnection.Open();
+        }
 
         public void Update(ORMModel ormModel)
         {
