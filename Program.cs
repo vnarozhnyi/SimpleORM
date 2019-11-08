@@ -8,12 +8,11 @@
 
             UnitOfWork uow = new UnitOfWork(connectionString);
 
-            uow.repository.Insert(new Users { Id = 1, Name = "Admin" });
-            uow.repository.Insert(new Users { Id = 2, Name = "User" });
-            uow.repository.Insert(new Users { Id = 3, Name = "Name" });
-            uow.repository.Update(new Users { Id = 3, Name = "Admin" });
-            uow.repository.Delete(new Users { Id = 3 });
-            uow.repository.Insert(new Users { Id = 3, Name = "Hello" });
+            uow.repository.Insert(new Users { Name = "Admin" });
+            uow.repository.Insert(new Users { Name = "User" });
+            uow.repository.Insert(new Users { Name = "Name" });
+            uow.repository.Update(new Users { Name = "Admin" });
+            uow.repository.Insert(new Users { Name = "Hello" });
 
             uow._dbconnection.Close();
         }
