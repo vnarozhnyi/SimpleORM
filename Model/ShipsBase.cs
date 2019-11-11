@@ -7,9 +7,6 @@ namespace ORM.Model
     [Table(Name = "[ShipsBase]")]
     class ShipsBase : ORMModel
     {
-        [SqlColumn("Id", "INT NOT NULL", IsPrimaryKey = true)]
-        public int Id { get; set; }
-
         [SqlColumn("ShipID", "INT NOT NULL")]
         public int ShipID { get; set; }
 
