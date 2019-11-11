@@ -1,5 +1,4 @@
-﻿using ORM.Model;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace ORM
@@ -12,7 +11,6 @@ namespace ORM
         {
             _dbconnection = dbconnection;
         }
-
 
         public void Update(ORMModel ormModel)
         {

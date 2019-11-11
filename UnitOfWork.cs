@@ -24,7 +24,5 @@ namespace ORM
                 return repo;
             }
         }
-
-
     }
 }
