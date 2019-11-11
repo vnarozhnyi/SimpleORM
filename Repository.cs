@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using ORM.Model;
+using System.Collections.Generic;
 using System.Data.SqlClient;
 
 namespace ORM
@@ -6,12 +7,13 @@ namespace ORM
     internal class Repository
     {
         public SqlConnection _dbconnection;
-        public List<Users> _users;
+       // public List<Field> _field;
 
         public Repository(SqlConnection dbconnection)
         {
             _dbconnection = dbconnection;
         }
+
 
         public void Update(ORMModel ormModel)
         {
@@ -28,11 +30,43 @@ namespace ORM
             ormModel.Insert(_dbconnection);
         }
 
-        public List<Users> Users
+        public List<Field> fields 
         {
             get
             {
-                return ((new Users()).Select<Users>(_dbconnection));
+                return ((new Field()).Select<Field>(_dbconnection));
+            }
+        }
+
+        public List<Ship> ships
+        {
+            get
+            {
+                return ((new Ship()).Select<Ship>(_dbconnection));
+            }
+        }
+
+        public List<Types> types
+        {
+            get
+            {
+                return ((new Types()).Select<Types>(_dbconnection));
+            }
+        }
+
+        public List<Directions> directions
+        {
+            get
+            {
+                return ((new Directions()).Select<Directions>(_dbconnection));
+            }
+        }
+
+        public List<ShipsBase> shipsBases
+        {
+            get
+            {
+                return ((new ShipsBase()).Select<ShipsBase>(_dbconnection));
             }
         }
 

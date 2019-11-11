@@ -49,13 +49,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Direction.cs" />
+    <Compile Include="Model\Field.cs" />
+    <Compile Include="Model\Ship.cs" />
+    <Compile Include="Model\ShipsBase.cs" />
+    <Compile Include="Model\Type.cs" />
     <Compile Include="ORMModel.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="SqlColumnAttribute.cs" />
     <Compile Include="UnitOfWork.cs" />
-    <Compile Include="UserModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

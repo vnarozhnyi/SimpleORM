@@ -29,7 +29,7 @@ namespace ORM
             }
             if (tableAttributes.Length == 1)
             {
-                stringBuilder.Append(string.Format("INSERT INTO [User] ", ((TableAttribute)tableAttributes[0]).Name));
+                stringBuilder.Append(string.Format("INSERT INTO {0} ", ((TableAttribute)tableAttributes[0]).Name));
 
                 int fieldCount = 0;
 
@@ -113,7 +113,7 @@ namespace ORM
         {
             var stringBuilder = new StringBuilder();
             var fieldsSql = new StringBuilder("");
-            //var whereSql = new StringBuilder(" WHERE ");
+            var whereSql = new StringBuilder(" WHERE ");
             Type type = GetType();
             object[] tableAttributes = type.GetCustomAttributes(typeof(TableAttribute), true);
 
@@ -129,10 +129,10 @@ namespace ORM
                     {
                         var columnAttribute = columnAttributes[0] as SqlColumnAttribute;
 
-                        //if (columnAttribute != null && columnAttribute.IsPrimaryKey)
-                        //{
-                        //    whereSql.Append(string.Format("{0}=@{0}", columnAttribute.ColumnName));
-                        //}
+                        if (columnAttribute != null && columnAttribute.IsPrimaryKey)
+                        {
+                            whereSql.Append(string.Format("{0}=@{0}", columnAttribute.ColumnName));
+                        }
                         if (fieldCount == 0)
                         {
                             if (columnAttribute != null && !columnAttribute.IsAutoIncrement)
@@ -153,7 +153,7 @@ namespace ORM
                     }
                 }
                 stringBuilder.Append(fieldsSql);
-                //stringBuilder.Append(whereSql);
+                stringBuilder.Append(whereSql);
             }
             return stringBuilder.ToString();
         }
@@ -162,7 +162,7 @@ namespace ORM
         {
             var stringBuilder = new StringBuilder();
             var fieldsSql = new StringBuilder("");
-            var whereSql = new StringBuilder(" WHERE ");
+            var whereSql = new StringBuilder(" WHERE");
             Type type = GetType();
             object[] tableAttributes = type.GetCustomAttributes(typeof(TableAttribute), true);
 
@@ -178,7 +178,7 @@ namespace ORM
                         var columnAttribute = columnAttributes[0] as SqlColumnAttribute;
                         if (columnAttribute != null && columnAttribute.IsPrimaryKey)
                         {
-                            whereSql.Append(string.Format("{0}=@{0}", columnAttribute.ColumnName));
+                            whereSql.Append(string.Format("({0}=@{0})", columnAttribute.ColumnName));
                             break;
                         }
                     }

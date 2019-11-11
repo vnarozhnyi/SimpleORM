@@ -1,18 +1,19 @@
-﻿namespace ORM
+﻿using ORM.Model;
+
+namespace ORM
 {
     class Program
     {
         static void Main(string[] args)
         {
-            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=ORMTestDB;Integrated Security=True";
+            string connectionString = @"Data Source=.\SQLEXPRESS;Initial Catalog=BattleShipDB;Integrated Security=True";
 
             UnitOfWork uow = new UnitOfWork(connectionString);
 
-            uow.repository.Insert(new Users { Name = "Admin" });
-            uow.repository.Insert(new Users { Name = "User" });
-            uow.repository.Insert(new Users { Name = "Name" });
-            uow.repository.Update(new Users { Name = "Admin" });
-            uow.repository.Insert(new Users { Name = "Hello" });
+            uow.repository.Insert(new Field {Id = 1, X = 2, Y = 5 });
+            uow.repository.Update(new Field {Id = 1,  X = 5, Y = 9 });
+            uow.repository.Delete(new Field { Id = 1 });
+
 
             uow._dbconnection.Close();
         }
