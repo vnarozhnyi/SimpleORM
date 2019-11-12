@@ -27,6 +27,11 @@ namespace ORM
             ormModel.Insert(_dbconnection);
         }
 
+        public List<ORMModel> Select(ORMModel ormModel)
+        {
+            return ormModel.Select<ORMModel>(_dbconnection);
+        }
+
         public List<ORMModel> models
         {
             get
