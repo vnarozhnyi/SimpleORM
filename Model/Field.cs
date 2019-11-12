@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Data.Linq.Mapping;
 
 namespace ORM.Model
@@ -15,5 +16,10 @@ namespace ORM.Model
 
         [SqlColumn("Y", "INT NOT NULL")]
         public int Y { get; set; }
+
+        [SqlColumn("ShipsList", "INT NOT NULL")]
+        public List<Ship> ShipsList { get; set; }
+
+
     }
 }

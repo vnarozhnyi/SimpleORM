@@ -10,7 +10,7 @@ namespace ORM.Model
         [SqlColumn("Id", "INT NOT NULL", IsPrimaryKey = true)]
         public int Id { get; set; }
 
-        [SqlColumn("Type", "VARCHAR(50) NOT NULL")]
-        public string Type { get; set; }
+        [SqlColumn("TypeOf", "VARCHAR(50) NOT NULL")]
+        public string TypeOf { get; set; }
     }
 }

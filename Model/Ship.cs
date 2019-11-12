@@ -20,9 +20,9 @@ namespace ORM.Model
         public int Length { get; set; }
 
         [SqlColumn("TypeID", "INT NOT NULL")]
-        public int TypeID { get; set; }
+        public Types TypeID { get; set; }
 
         [SqlColumn("DirectionID", "INT NOT NULL")]
-        public int DirectionID { get; set; }
+        public Directions DirectionID { get; set; }
     }
 }
