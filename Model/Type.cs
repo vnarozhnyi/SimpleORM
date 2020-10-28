@@ -12,5 +12,7 @@ namespace ORM.Model
 
         [SqlColumn("TypeOf", "VARCHAR(50) NOT NULL")]
         public string TypeOf { get; set; }
+
+        public string Type { get; set; }
     }
 }
